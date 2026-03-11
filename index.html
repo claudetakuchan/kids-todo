@@ -5,140 +5,258 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>あさの したく！</title>
+<title>ãã±ã¢ã³ ããã®ãããï¼</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;900&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
-    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 50%, #ffd89b 100%);
+    font-family: 'M PLUS Rounded 1c', 'Hiragino Sans', sans-serif;
+    background: #1a1a2e;
     min-height: 100vh;
-    padding: 20px 16px;
+    padding: 16px 12px;
     overflow-x: hidden;
-  }
-  .title {
-    text-align: center;
-    font-size: 28px;
-    font-weight: 900;
-    color: #fff;
-    text-shadow: 2px 2px 0 #e74c3c, 4px 4px 0 rgba(0,0,0,0.1);
-    margin-bottom: 8px;
-    letter-spacing: 4px;
-  }
-  .subtitle {
-    text-align: center;
-    font-size: 14px;
-    color: rgba(255,255,255,0.9);
-    margin-bottom: 20px;
-  }
-  .progress-bar {
-    background: rgba(255,255,255,0.4);
-    border-radius: 20px;
-    height: 24px;
-    margin-bottom: 24px;
-    overflow: hidden;
     position: relative;
   }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #f39c12, #e74c3c, #e74c3c);
-    border-radius: 20px;
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    width: 0%;
+  /* ãã±ã¢ã³é¢¨ã®èåèæ¯ */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 50% 120%, #2d5a27 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, #1e6b3a 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 90%, #1e6b3a 0%, transparent 40%),
+      linear-gradient(180deg, #87CEEB 0%, #5ba3d9 30%, #3a7bd5 50%, #2d5a27 65%, #1a4020 100%);
+    z-index: -1;
   }
-  .progress-text {
+  /* é² */
+  .cloud {
+    position: fixed;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50px;
+    z-index: 0;
+    animation: cloud-float linear infinite;
+  }
+  .cloud::before, .cloud::after {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+  }
+  .cloud1 { width: 80px; height: 28px; top: 8%; left: -80px; animation-duration: 25s; }
+  .cloud1::before { width: 36px; height: 36px; top: -18px; left: 14px; }
+  .cloud1::after { width: 24px; height: 24px; top: -10px; left: 42px; }
+  .cloud2 { width: 60px; height: 22px; top: 14%; left: -60px; animation-duration: 35s; animation-delay: 8s; }
+  .cloud2::before { width: 28px; height: 28px; top: -14px; left: 10px; }
+  .cloud2::after { width: 20px; height: 20px; top: -8px; left: 32px; }
+  @keyframes cloud-float {
+    from { transform: translateX(-100px); }
+    to { transform: translateX(calc(100vw + 100px)); }
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  /* ã¢ã³ã¹ã¿ã¼ãã¼ã«é¢¨ãã­ã°ã¬ã¹ */
+  .pokeball-title {
+    display: inline-block;
+    width: 36px; height: 36px;
+    background: linear-gradient(180deg, #ff1a1a 0%, #ff1a1a 45%, #333 45%, #333 55%, #fff 55%, #fff 100%);
+    border-radius: 50%;
+    border: 3px solid #333;
+    position: relative;
+    vertical-align: middle;
+    margin: 0 6px;
+  }
+  .pokeball-title::after {
+    content: '';
+    position: absolute;
+    width: 12px; height: 12px;
+    background: #fff;
+    border: 3px solid #333;
+    border-radius: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 12px;
+  }
+  .title {
+    font-size: 24px;
+    font-weight: 900;
+    color: #FFD700;
+    text-shadow: 2px 2px 0 #b8860b, 0 0 10px rgba(255,215,0,0.5);
+    letter-spacing: 3px;
+    position: relative;
+    z-index: 1;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    margin-top: 4px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+
+  /* EXPãã¼é¢¨ãã­ã°ã¬ã¹ */
+  .exp-bar-container {
+    background: #333;
+    border-radius: 12px;
+    padding: 3px;
+    margin: 12px 0 16px;
+    position: relative;
+    z-index: 1;
+    border: 2px solid #555;
+  }
+  .exp-bar-label {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    font-weight: 700;
+    color: #8be8fd;
+    z-index: 2;
+    text-shadow: 1px 1px 0 #000;
+  }
+  .exp-bar-fill {
+    height: 20px;
+    background: linear-gradient(90deg, #00b4d8, #48cae4, #90e0ef);
+    border-radius: 10px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+    box-shadow: 0 0 8px rgba(72,202,228,0.5);
+  }
+  .exp-bar-text {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
     font-weight: 700;
     color: #fff;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+    z-index: 2;
+    text-shadow: 1px 1px 0 #000;
   }
+
   .todo-item {
-    background: rgba(255,255,255,0.92);
-    border-radius: 20px;
-    padding: 16px;
-    margin-bottom: 14px;
+    background: rgba(255,255,255,0.93);
+    border-radius: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
-    gap: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.5);
     transition: all 0.4s ease;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     position: relative;
     overflow: hidden;
+    z-index: 1;
+    border: 2px solid rgba(0,0,0,0.08);
   }
+  .todo-item:active { transform: scale(0.98); }
   .todo-item.done {
-    background: rgba(255,255,255,0.5);
-    transform: scale(0.97);
+    background: rgba(200,255,200,0.85);
+    border-color: #27ae60;
   }
   .todo-item.done .task-text {
     text-decoration: line-through;
-    color: #aaa;
+    color: #888;
   }
-  .pokemon-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+  .pokemon-sprite {
+    width: 64px;
+    height: 64px;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 42px;
+    image-rendering: pixelated;
     transition: transform 0.3s ease;
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
   }
-  .todo-item.done .pokemon-icon {
-    transform: scale(1.1) rotate(10deg);
+  .todo-item.done .pokemon-sprite {
+    animation: pokemon-happy 0.5s ease;
   }
-  .task-content {
-    flex: 1;
+  @keyframes pokemon-happy {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-8px) rotate(-5deg); }
+    75% { transform: translateY(-4px) rotate(5deg); }
   }
+  .task-content { flex: 1; }
   .task-text {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: #333;
     transition: all 0.3s ease;
   }
   .task-sub {
-    font-size: 12px;
-    color: #999;
+    font-size: 11px;
+    color: #888;
     margin-top: 2px;
   }
-  .check-circle {
-    width: 40px;
-    height: 40px;
+  .pokemon-name {
+    font-size: 10px;
+    color: #e74c3c;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  /* ã¢ã³ã¹ã¿ã¼ãã¼ã«é¢¨ãã§ãã¯ */
+  .pokeball-check {
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    border: 3px solid #ddd;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
+    position: relative;
+    background: linear-gradient(180deg, #ff4444 0%, #ff4444 45%, #333 45%, #333 55%, #fff 55%, #fff 100%);
+    border: 2px solid #333;
     transition: all 0.3s ease;
+    opacity: 0.4;
+  }
+  .pokeball-check::after {
+    content: '';
+    position: absolute;
+    width: 10px; height: 10px;
     background: #fff;
+    border: 2px solid #333;
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
   }
-  .todo-item.done .check-circle {
-    border-color: #27ae60;
-    background: #27ae60;
-    color: #fff;
+  .todo-item.done .pokeball-check {
+    opacity: 1;
+    background: linear-gradient(180deg, #27ae60 0%, #27ae60 45%, #333 45%, #333 55%, #fff 55%, #fff 100%);
+    animation: pokeball-catch 0.6s ease;
   }
+  .todo-item.done .pokeball-check::after {
+    background: #FFD700;
+    border-color: #b8860b;
+    box-shadow: 0 0 6px rgba(255,215,0,0.8);
+  }
+  @keyframes pokeball-catch {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-20deg); }
+    50% { transform: rotate(20deg); }
+    75% { transform: rotate(-10deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  /* ã¹ãã¼ã¯ã« */
   .sparkle {
     position: absolute;
     pointer-events: none;
-    font-size: 24px;
+    font-size: 20px;
     animation: sparkle-fly 0.8s ease-out forwards;
+    z-index: 10;
   }
   @keyframes sparkle-fly {
     0% { opacity: 1; transform: translate(0, 0) scale(1); }
     100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.3); }
   }
+
+  /* å¨é¨å®äºãªã¼ãã¼ã¬ã¤ */
   .complete-overlay {
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.7);
     z-index: 100;
     align-items: center;
     justify-content: center;
@@ -149,79 +267,146 @@
     animation: fadeIn 0.5s ease;
   }
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; } to { opacity: 1; }
   }
   .complete-message {
-    background: #fff;
-    border-radius: 30px;
-    padding: 40px 30px;
+    background: linear-gradient(135deg, #fff 0%, #fffde7 100%);
+    border-radius: 24px;
+    padding: 32px 24px;
     text-align: center;
-    max-width: 320px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 300px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(255,215,0,0.3);
     animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 3px solid #FFD700;
   }
   @keyframes bounceIn {
     0% { transform: scale(0.3); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
   }
-  .complete-emoji {
-    font-size: 80px;
-    margin-bottom: 16px;
+  .complete-pokemon {
+    width: 120px;
+    height: 120px;
+    image-rendering: pixelated;
+    animation: pokemon-bounce 1s ease infinite;
+    filter: drop-shadow(3px 3px 3px rgba(0,0,0,0.3));
+  }
+  @keyframes pokemon-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
   .complete-text {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 900;
     color: #e74c3c;
-    margin-bottom: 8px;
+    margin: 8px 0;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
   }
   .complete-sub {
-    font-size: 16px;
+    font-size: 14px;
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .level-up {
+    font-size: 18px;
+    font-weight: 900;
+    color: #FFD700;
+    text-shadow: 1px 1px 0 #b8860b;
+    margin-bottom: 12px;
+    animation: level-flash 0.5s ease infinite alternate;
+  }
+  @keyframes level-flash {
+    from { opacity: 0.7; } to { opacity: 1; }
   }
   .reset-btn {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #ff4444, #cc0000);
     color: #fff;
     border: none;
     border-radius: 30px;
-    padding: 14px 40px;
-    font-size: 18px;
+    padding: 12px 36px;
+    font-size: 16px;
     font-weight: 700;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 4px 12px rgba(204,0,0,0.3);
+    border: 2px solid #990000;
   }
-  .reset-btn:active {
-    transform: scale(0.95);
-  }
+  .reset-btn:active { transform: scale(0.95); }
 </style>
 </head>
 <body>
-<div class="title">&#11088; あさの したく &#11088;</div>
-<div class="subtitle">ぜんぶ できるかな？</div>
-<div class="progress-bar">
-  <div class="progress-fill" id="progressFill"></div>
-  <div class="progress-text" id="progressText">0 / 4</div>
+
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
+
+<div class="header">
+  <div class="title">
+    <span class="pokeball-title"></span>
+    ããã®ããã
+    <span class="pokeball-title"></span>
+  </div>
+  <div class="subtitle">ããã¶ ã²ããã ãï¼</div>
 </div>
+
+<div class="exp-bar-container">
+  <div class="exp-bar-label">EXP</div>
+  <div class="exp-bar-fill" id="progressFill"></div>
+  <div class="exp-bar-text" id="progressText">0 / 4</div>
+</div>
+
 <div id="todoList"></div>
+
 <div class="complete-overlay" id="completeOverlay">
   <div class="complete-message">
-    <div class="complete-emoji">&#127881;&#127942;&#127881;</div>
-    <div class="complete-text">カンペキ！！</div>
-    <div class="complete-sub">きょうも いちにち<br>がんばろう！</div>
-    <button class="reset-btn" onclick="resetAll()">もういちど</button>
+    <img class="complete-pokemon" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="Pikachu">
+    <div class="level-up">LEVEL UP!</div>
+    <div class="complete-text">ã«ã³ãã­ï¼ï¼</div>
+    <div class="complete-sub">ãããã ãã¡ã«ã¡<br>ããã°ããï¼</div>
+    <button class="reset-btn" onclick="resetAll()">ãããã¡ã©</button>
   </div>
 </div>
+
 <script>
 const tasks = [
-  { text: 'はを みがく', sub: 'きれいに みがこう！', emoji: '&#x1F438;', doneEmoji: '&#10024;', color: '#27ae60' },
-  { text: 'くつしたを はく', sub: 'ひだりとみぎ あってる？', emoji: '&#x1F525;', doneEmoji: '&#9889;', color: '#e67e22' },
-  { text: 'ハンカチを もつ', sub: 'ポケットに いれた？', emoji: '&#x1F4A7;', doneEmoji: '&#x1F30A;', color: '#3498db' },
-  { text: 'うわぎを きる', sub: 'きょうは さむいよ！', emoji: '&#9889;', doneEmoji: '&#x1F4AB;', color: '#9b59b6' },
+  {
+    text: 'ã¯ã ã¿ãã',
+    sub: 'ãããã« ã¿ãããï¼',
+    pokemon: 'ã¼ãã¬ã¡',
+    // ã¼ãã¬ã¡ (æ°´ã¿ã¤ã â æ­¯æ£¨ã)
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png',
+    color: '#3498db'
+  },
+  {
+    text: 'ãã¤ããã ã¯ã',
+    sub: 'ã²ã ãã¨ã¿ã ãã£ã¦ãï¼',
+    pokemon: 'ããã«ã²',
+    // ããã«ã² (è¶³åãã£ãã)
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png',
+    color: '#e67e22'
+  },
+  {
+    text: 'ãã³ã«ãã ãã¤',
+    sub: 'ãã±ããã« ãããï¼',
+    pokemon: 'ãã·ã®ãã',
+    // ãã·ã®ãã (èã¿ã¤ã â ãã³ã«ã)
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
+    color: '#27ae60'
+  },
+  {
+    text: 'ãããã ãã',
+    sub: 'ãããã¯ ããããï¼',
+    pokemon: 'ãã«ãã¥ã¦',
+    // ãã«ãã¥ã¦
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
+    color: '#f1c40f'
+  },
 ];
+
 const todoList = document.getElementById('todoList');
-let doneState = JSON.parse(localStorage.getItem('kidsTodo') || '[]');
+let doneState = JSON.parse(localStorage.getItem('kidsTodoPoke') || '[]');
 if (doneState.length !== tasks.length) doneState = tasks.map(() => false);
+
 function render() {
   todoList.innerHTML = '';
   let doneCount = 0;
@@ -230,41 +415,53 @@ function render() {
     if (done) doneCount++;
     const div = document.createElement('div');
     div.className = 'todo-item' + (done ? ' done' : '');
-    div.innerHTML = '<div class="pokemon-icon" style="background:' + (done ? '#f0f0f0' : task.color + '22') + '">' + (done ? task.doneEmoji : task.emoji) + '</div><div class="task-content"><div class="task-text">' + task.text + '</div><div class="task-sub">' + task.sub + '</div></div><div class="check-circle">' + (done ? '&#10003;' : '') + '</div>';
-    div.addEventListener('click', () => toggle(i, div));
+    div.innerHTML =
+      '<img class="pokemon-sprite" src="' + task.sprite + '" alt="' + task.pokemon + '">' +
+      '<div class="task-content">' +
+        '<div class="task-text">' + task.text + '</div>' +
+        '<div class="task-sub">' + task.sub + '</div>' +
+        '<div class="pokemon-name">' + task.pokemon + (done ? ' ã²ããï¼' : ' ã ããããï¼') + '</div>' +
+      '</div>' +
+      '<div class="pokeball-check"></div>';
+    div.addEventListener('click', function() { toggle(i, div); });
     todoList.appendChild(div);
   });
-  const pct = (doneCount / tasks.length) * 100;
+  var pct = (doneCount / tasks.length) * 100;
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressText').textContent = doneCount + ' / ' + tasks.length;
-  localStorage.setItem('kidsTodo', JSON.stringify(doneState));
+  localStorage.setItem('kidsTodoPoke', JSON.stringify(doneState));
   if (doneCount === tasks.length) {
-    setTimeout(() => { document.getElementById('completeOverlay').classList.add('show'); }, 600);
+    setTimeout(function() {
+      document.getElementById('completeOverlay').classList.add('show');
+    }, 600);
   }
 }
+
 function toggle(index, element) {
   doneState[index] = !doneState[index];
   if (doneState[index]) {
-    var emojis = ['&#11088;','&#10024;','&#127775;','&#128171;','&#127925;','&#10084;&#65039;'];
+    var emojis = ['\u2B50','\u2728','\uD83C\uDF1F','\uD83D\uDCAB','\uD83C\uDF1F','\u2764\uFE0F'];
     for (var j = 0; j < 6; j++) {
       var s = document.createElement('span');
       s.className = 'sparkle';
-      s.innerHTML = emojis[j];
+      s.textContent = emojis[j];
       s.style.left = (30 + Math.random() * 40) + '%';
       s.style.top = '50%';
       s.style.setProperty('--tx', (Math.random() * 120 - 60) + 'px');
       s.style.setProperty('--ty', (Math.random() * -80 - 20) + 'px');
       element.appendChild(s);
-      setTimeout(function(el){return function(){el.remove()}}(s), 800);
+      (function(el) { setTimeout(function() { el.remove(); }, 800); })(s);
     }
   }
   render();
 }
+
 function resetAll() {
-  doneState = tasks.map(() => false);
+  doneState = tasks.map(function() { return false; });
   document.getElementById('completeOverlay').classList.remove('show');
   render();
 }
+
 render();
 </script>
 </body>
