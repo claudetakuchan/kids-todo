@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>ãã±ã¢ã³ ããã®ãããï¼</title>
+<title>ポケモン あさのしたく！</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;900&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -17,7 +17,7 @@
     overflow-x: hidden;
     position: relative;
   }
-  /* ãã±ã¢ã³é¢¨ã®èåèæ¯ */
+  /* ポケモン風の草原背景 */
   body::before {
     content: '';
     position: fixed;
@@ -29,7 +29,7 @@
       linear-gradient(180deg, #87CEEB 0%, #5ba3d9 30%, #3a7bd5 50%, #2d5a27 65%, #1a4020 100%);
     z-index: -1;
   }
-  /* é² */
+  /* 雲 */
   .cloud {
     position: fixed;
     background: rgba(255,255,255,0.8);
@@ -60,7 +60,7 @@
     position: relative;
     z-index: 1;
   }
-  /* ã¢ã³ã¹ã¿ã¼ãã¼ã«é¢¨ãã­ã°ã¬ã¹ */
+  /* モンスターボール風プログレス */
   .pokeball-title {
     display: inline-block;
     width: 36px; height: 36px;
@@ -97,7 +97,7 @@
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
   }
 
-  /* EXPãã¼é¢¨ãã­ã°ã¬ã¹ */
+  /* EXPバー風プログレス */
   .exp-bar-container {
     background: #333;
     border-radius: 12px;
@@ -198,7 +198,7 @@
     font-weight: 700;
     margin-top: 1px;
   }
-  /* ã¢ã³ã¹ã¿ã¼ãã¼ã«é¢¨ãã§ãã¯ */
+  /* モンスターボール風チェック */
   .pokeball-check {
     width: 36px;
     height: 36px;
@@ -238,7 +238,7 @@
     100% { transform: rotate(0deg); }
   }
 
-  /* ã¹ãã¼ã¯ã« */
+  /* スパークル */
   .sparkle {
     position: absolute;
     pointer-events: none;
@@ -251,7 +251,7 @@
     100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.3); }
   }
 
-  /* å¨é¨å®äºãªã¼ãã¼ã¬ã¤ */
+  /* 全部完了オーバーレイ */
   .complete-overlay {
     display: none;
     position: fixed;
@@ -343,10 +343,10 @@
 <div class="header">
   <div class="title">
     <span class="pokeball-title"></span>
-    ããã®ããã
+    あさのしたく
     <span class="pokeball-title"></span>
   </div>
-  <div class="subtitle">ããã¶ ã²ããã ãï¼</div>
+  <div class="subtitle">ぜんぶ ゲットだぜ！</div>
 </div>
 
 <div class="exp-bar-container">
@@ -361,43 +361,43 @@
   <div class="complete-message">
     <img class="complete-pokemon" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="Pikachu">
     <div class="level-up">LEVEL UP!</div>
-    <div class="complete-text">ã«ã³ãã­ï¼ï¼</div>
-    <div class="complete-sub">ãããã ãã¡ã«ã¡<br>ããã°ããï¼</div>
-    <button class="reset-btn" onclick="resetAll()">ãããã¡ã©</button>
+    <div class="complete-text">カンペキ！！</div>
+    <div class="complete-sub">きょうも いちにち<br>がんばろう！</div>
+    <button class="reset-btn" onclick="resetAll()">もういちど</button>
   </div>
 </div>
 
 <script>
 const tasks = [
   {
-    text: 'ã¯ã ã¿ãã',
-    sub: 'ãããã« ã¿ãããï¼',
-    pokemon: 'ã¼ãã¬ã¡',
-    // ã¼ãã¬ã¡ (æ°´ã¿ã¤ã â æ­¯æ£¨ã)
+    text: 'はを みがく',
+    sub: 'きれいに みがこう！',
+    pokemon: 'ゼニガメ',
+    // ゼニガメ (水タイプ → 歯磨き)
     sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png',
     color: '#3498db'
   },
   {
-    text: 'ãã¤ããã ã¯ã',
-    sub: 'ã²ã ãã¨ã¿ã ãã£ã¦ãï¼',
-    pokemon: 'ããã«ã²',
-    // ããã«ã² (è¶³åãã£ãã)
+    text: 'くつしたを はく',
+    sub: 'ひだりとみぎ あってる？',
+    pokemon: 'ヒトカゲ',
+    // ヒトカゲ (足元あったか)
     sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png',
     color: '#e67e22'
   },
   {
-    text: 'ãã³ã«ãã ãã¤',
-    sub: 'ãã±ããã« ãããï¼',
-    pokemon: 'ãã·ã®ãã',
-    // ãã·ã®ãã (èã¿ã¤ã â ãã³ã«ã)
+    text: 'ハンカチを もつ',
+    sub: 'ポケットに いれた？',
+    pokemon: 'フシギダネ',
+    // フシギダネ (草タイプ → ハンカチ)
     sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
     color: '#27ae60'
   },
   {
-    text: 'ãããã ãã',
-    sub: 'ãããã¯ ããããï¼',
-    pokemon: 'ãã«ãã¥ã¦',
-    // ãã«ãã¥ã¦
+    text: 'うわぎを きる',
+    sub: 'きょうは さむいよ！',
+    pokemon: 'ピカチュウ',
+    // ピカチュウ
     sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
     color: '#f1c40f'
   },
@@ -420,7 +420,7 @@ function render() {
       '<div class="task-content">' +
         '<div class="task-text">' + task.text + '</div>' +
         '<div class="task-sub">' + task.sub + '</div>' +
-        '<div class="pokemon-name">' + task.pokemon + (done ? ' ã²ããï¼' : ' ã ããããï¼') + '</div>' +
+        '<div class="pokemon-name">' + task.pokemon + (done ? ' ゲット！' : ' が おうえん！') + '</div>' +
       '</div>' +
       '<div class="pokeball-check"></div>';
     div.addEventListener('click', function() { toggle(i, div); });
