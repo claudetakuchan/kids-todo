@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>あさの したく！</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 50%, #ffd89b 100%);
+    min-height: 100vh;
+    padding: 20px 16px;
+    overflow-x: hidden;
+  }
+  .title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 2px 2px 0 #e74c3c, 4px 4px 0 rgba(0,0,0,0.1);
+    margin-bottom: 8px;
+    letter-spacing: 4px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    background: rgba(255,255,255,0.4);
+    border-radius: 20px;
+    height: 24px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f39c12, #e74c3c, #e74c3c);
+    border-radius: 20px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+  .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  }
+  .todo-item {
+    background: rgba(255,255,255,0.92);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .todo-item.done {
+    background: rgba(255,255,255,0.5);
+    transform: scale(0.97);
+  }
+  .todo-item.done .task-text {
+    text-decoration: line-through;
+    color: #aaa;
+  }
+  .pokemon-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    transition: transform 0.3s ease;
+  }
+  .todo-item.done .pokemon-icon {
+    transform: scale(1.1) rotate(10deg);
+  }
+  .task-content {
+    flex: 1;
+  }
+  .task-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    transition: all 0.3s ease;
+  }
+  .task-sub {
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+  }
+  .check-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    transition: all 0.3s ease;
+    background: #fff;
+  }
+  .todo-item.done .check-circle {
+    border-color: #27ae60;
+    background: #27ae60;
+    color: #fff;
+  }
+  .sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 24px;
+    animation: sparkle-fly 0.8s ease-out forwards;
+  }
+  @keyframes sparkle-fly {
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.3); }
+  }
+  .complete-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .complete-overlay.show {
+    display: flex;
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .complete-message {
+    background: #fff;
+    border-radius: 30px;
+    padding: 40px 30px;
+    text-align: center;
+    max-width: 320px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  @keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .complete-emoji {
+    font-size: 80px;
+    margin-bottom: 16px;
+  }
+  .complete-text {
+    font-size: 26px;
+    font-weight: 900;
+    color: #e74c3c;
+    margin-bottom: 8px;
+  }
+  .complete-sub {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  .reset-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 40px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .reset-btn:active {
+    transform: scale(0.95);
+  }
+</style>
+</head>
+<body>
+<div class="title">&#11088; あさの したく &#11088;</div>
+<div class="subtitle">ぜんぶ できるかな？</div>
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+  <div class="progress-text" id="progressText">0 / 4</div>
+</div>
+<div id="todoList"></div>
+<div class="complete-overlay" id="completeOverlay">
+  <div class="complete-message">
+    <div class="complete-emoji">&#127881;&#127942;&#127881;</div>
+    <div class="complete-text">カンペキ！！</div>
+    <div class="complete-sub">きょうも いちにち<br>がんばろう！</div>
+    <button class="reset-btn" onclick="resetAll()">もういちど</button>
+  </div>
+</div>
+<script>
+const tasks = [
+  { text: 'はを みがく', sub: 'きれいに みがこう！', emoji: '&#x1F438;', doneEmoji: '&#10024;', color: '#27ae60' },
+  { text: 'くつしたを はく', sub: 'ひだりとみぎ あってる？', emoji: '&#x1F525;', doneEmoji: '&#9889;', color: '#e67e22' },
+  { text: 'ハンカチを もつ', sub: 'ポケットに いれた？', emoji: '&#x1F4A7;', doneEmoji: '&#x1F30A;', color: '#3498db' },
+  { text: 'うわぎを きる', sub: 'きょうは さむいよ！', emoji: '&#9889;', doneEmoji: '&#x1F4AB;', color: '#9b59b6' },
+];
+const todoList = document.getElementById('todoList');
+let doneState = JSON.parse(localStorage.getItem('kidsTodo') || '[]');
+if (doneState.length !== tasks.length) doneState = tasks.map(() => false);
+function render() {
+  todoList.innerHTML = '';
+  let doneCount = 0;
+  tasks.forEach((task, i) => {
+    const done = doneState[i];
+    if (done) doneCount++;
+    const div = document.createElement('div');
+    div.className = 'todo-item' + (done ? ' done' : '');
+    div.innerHTML = '<div class="pokemon-icon" style="background:' + (done ? '#f0f0f0' : task.color + '22') + '">' + (done ? task.doneEmoji : task.emoji) + '</div><div class="task-content"><div class="task-text">' + task.text + '</div><div class="task-sub">' + task.sub + '</div></div><div class="check-circle">' + (done ? '&#10003;' : '') + '</div>';
+    div.addEventListener('click', () => toggle(i, div));
+    todoList.appendChild(div);
+  });
+  const pct = (doneCount / tasks.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = doneCount + ' / ' + tasks.length;
+  localStorage.setItem('kidsTodo', JSON.stringify(doneState));
+  if (doneCount === tasks.length) {
+    setTimeout(() => { document.getElementById('completeOverlay').classList.add('show'); }, 600);
+  }
+}
+function toggle(index, element) {
+  doneState[index] = !doneState[index];
+  if (doneState[index]) {
+    var emojis = ['&#11088;','&#10024;','&#127775;','&#128171;','&#127925;','&#10084;&#65039;'];
+    for (var j = 0; j < 6; j++) {
+      var s = document.createElement('span');
+      s.className = 'sparkle';
+      s.innerHTML = emojis[j];
+      s.style.left = (30 + Math.random() * 40) + '%';
+      s.style.top = '50%';
+      s.style.setProperty('--tx', (Math.random() * 120 - 60) + 'px');
+      s.style.setProperty('--ty', (Math.random() * -80 - 20) + 'px');
+      element.appendChild(s);
+      setTimeout(function(el){return function(){el.remove()}}(s), 800);
+    }
+  }
+  render();
+}
+function resetAll() {
+  doneState = tasks.map(() => false);
+  document.getElementById('completeOverlay').classList.remove('show');
+  render();
+}
+render();
+</script>
+</body>
+</html>
